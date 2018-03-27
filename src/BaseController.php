@@ -192,7 +192,6 @@ class BaseController extends Controller
                 'method' => $request->method(),
                 'path' => $request->getPathInfo(),
                 'domain' => $request->root(),
-                'controller' => $request->route()[1]['uses'],
                 'full_url' => $request->fullUrl(),
                 'proxy' => $request->get('proxy', false),
                 'params' => $request->all(),
