@@ -100,7 +100,6 @@ class BaseController extends Controller
      * @return mixed
      */
     protected function response(Request $request, $data, array $meta = [], array $status = []) {
-
         $meta = self::buildMetaData($request, $data, $meta);
         $status = self::buildStatusCode($status);
 
@@ -155,11 +154,12 @@ class BaseController extends Controller
      */
     private static function buildMetaData(Request $request, $data, array $metaData = []) {
 
+
         $meta = [
             'count' => count((array) $data),
             'totalCount' => count((array) $data),
             'page' => 1,
-            'input' => $request->all(),
+            'input' => $request->except('authUser'),
             'debug' => (app()->environment() !== 'production' ? self::createDebugMetaData($request) : null),
             'autoSorting' => [
                 'status' => 'false',
@@ -194,11 +194,12 @@ class BaseController extends Controller
                 'domain' => $request->root(),
                 'full_url' => $request->fullUrl(),
                 'proxy' => $request->get('proxy', false),
-                'params' => $request->all(),
+                'params' => $request->except('authUser'),
                 'cacheHit' => null,
 
             ],
             'environment' =>  app()->environment(),
         ];
     }
+
 }
